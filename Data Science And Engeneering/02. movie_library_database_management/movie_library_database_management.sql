@@ -1,3 +1,5 @@
+-- This file has been create to be used in the sqlite command prompt
+
 -- Dropping table and view in case of multiple use in the same session
 DROP TABLE IF EXIST movie_metadata;
 DROP TABLE IF EXIST movie_metadata_temp;
@@ -6,6 +8,9 @@ DROP TABLE IF EXIST income_and_spend;
 DROP TABLE IF EXIST reting;
 DROP VIEW IF EXIST movie_and_rating;
 
+
+-- 1. Insert the data that is provided in the spread for each of the tables.
+
 -- Importing the data from the csv file
 .mode csv
 .import C:/sqlite/movie_metadata.csv movie_metadata
@@ -13,7 +18,7 @@ DROP VIEW IF EXIST movie_and_rating;
 -- Checking how the imported table is strucured
 .schema
 
--- To create a primary key we start by adding a new empety column called movie_ID
+-- To create a primary key we start by adding a new empty column called movie_ID
 ALTER TABLE movie_metadata ADD movie_ID INTEGER;
 ALTER TABLE movie_metadata RENAME TO movie_metadata_temp;
 
@@ -57,8 +62,9 @@ INSERT INTO movie_metadata SELECT DISTINCT * FROM movie_metadata_temp;
 -- Drop the original table that is no longer needed
 DROP TABLE movie_metadata_temp;
 
+-- 2. Create the Primary key on Movie ID in the movie table and join the income and rating table with foreign key
 
--- Creating the tables in wich we splitting the database
+-- Creating the tables in wich splitting the database
 CREATE TABLE movie (
    "movie_ID" INTEGER,
    "movie_title" TEXT,
